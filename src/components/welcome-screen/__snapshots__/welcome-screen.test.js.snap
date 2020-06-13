@@ -16,6 +16,7 @@ exports[`WelcomeScreen Component rendering WelcomeScreen Component should render
   </div>
   <button
     className="welcome__button"
+    onClick={[Function]}
   >
     <span
       className="visually-hidden"

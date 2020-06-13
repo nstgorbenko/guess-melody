@@ -8,6 +8,7 @@ describe(`WelcomeScreen Component rendering`, () => {
       .create(
           <WelcomeScreen
             errorsCount = {3}
+            onWelcomeButtonClick = {() => {}}
           />
       )
       .toJSON();
