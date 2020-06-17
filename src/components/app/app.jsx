@@ -9,7 +9,7 @@ import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 const welcomeButtonHandler = () => {};
 
 const App = (props) => {
-  const {errorsCount} = props;
+  const {errorsCount, questions} = props;
 
   return (
     <BrowserRouter>
@@ -24,7 +24,10 @@ const App = (props) => {
           <ArtistQuestionScreen/>
         </Route>
         <Route exact path="/genre">
-          <GenreQuestionScreen/>
+          <GenreQuestionScreen
+            question={questions[0]}
+            onAnswer={() => {}}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -33,6 +36,7 @@ const App = (props) => {
 
 App.propTypes = {
   errorsCount: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default App;
