@@ -21,7 +21,10 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/artist">
-          <ArtistQuestionScreen/>
+          <ArtistQuestionScreen
+            question={questions[1]}
+            onAnswer={() => {}}
+          />
         </Route>
         <Route exact path="/genre">
           <GenreQuestionScreen
