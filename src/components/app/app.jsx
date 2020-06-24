@@ -3,6 +3,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
+import GameScreen from "../game-screen/game-screen.jsx";
 import {GameType} from "../../const.js";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
@@ -17,29 +18,36 @@ class App extends PureComponent {
     this._switchToNextScreen = this._switchToNextScreen.bind(this);
   }
 
-  render() {
-    const {questions} = this.props;
+  _switchToNextScreen() {
+    this.setState((prevState) => ({
+      step: prevState.step + 1
+    })
+    );
+  }
+
+  _renderArtistQuestionScreen(topic) {
+    const question = topic || this.props.questions[this.state.step];
 
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderGameScreen()}
-          </Route>
-          <Route exact path="/artist">
-            <ArtistQuestionScreen
-              question={questions[1]}
-              onAnswer={() => {}}
-            />
-          </Route>
-          <Route exact path="/genre">
-            <GenreQuestionScreen
-              question={questions[0]}
-              onAnswer={() => {}}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <GameScreen type={GameType.ARTIST}>
+        <ArtistQuestionScreen
+          question={question}
+          onAnswer={this._switchToNextScreen}
+        />
+      </GameScreen>
+    );
+  }
+
+  _renderGenreQuestionScreen(topic) {
+    const question = topic || this.props.questions[this.state.step];
+
+    return (
+      <GameScreen type={GameType.GENRE}>
+        <GenreQuestionScreen
+          question={question}
+          onAnswer={this._switchToNextScreen}
+        />
+      </GameScreen>
     );
   }
 
@@ -60,29 +68,32 @@ class App extends PureComponent {
     if (question) {
       switch (question.type) {
         case GameType.ARTIST:
-          return (
-            <ArtistQuestionScreen
-              question={question}
-              onAnswer={this._switchToNextScreen}
-            />
-          );
+          return this._renderArtistQuestionScreen();
         case GameType.GENRE:
-          return (
-            <GenreQuestionScreen
-              question={question}
-              onAnswer={this._switchToNextScreen}
-            />
-          );
+          return this._renderGenreQuestionScreen();
       }
     }
 
     return null;
   }
 
-  _switchToNextScreen() {
-    this.setState((prevState) => ({
-      step: prevState.step + 1
-    })
+  render() {
+    const {questions} = this.props;
+
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderGameScreen()}
+          </Route>
+          <Route exact path="/artist">
+            {this._renderArtistQuestionScreen(questions[1])}
+          </Route>
+          <Route exact path="/genre">
+            {this._renderGenreQuestionScreen(questions[0])}
+          </Route>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
