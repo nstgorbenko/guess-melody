@@ -45,8 +45,9 @@ describe(`ArtistQuestionScreen working test`, () => {
     };
 
     const screen = shallow(<ArtistQuestionScreen
-      onAnswer={onAnswer}
       question={question}
+      onAnswer={onAnswer}
+      renderPlayer={() => {}}
     />);
 
     const firstInput = screen.find(`input`).at(0);

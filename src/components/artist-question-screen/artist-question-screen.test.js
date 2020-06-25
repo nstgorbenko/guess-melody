@@ -27,6 +27,7 @@ describe(`ArtistQuestionScreen Component rendering`, () => {
           <ArtistQuestionScreen
             question={testQuestion}
             onAnswer={() => {}}
+            renderPlayer={() => {}}
           />, {
             createNodeMock: () => ({})
           })

@@ -7,15 +7,18 @@ import GameScreen from "../game-screen/game-screen.jsx";
 import {GameType} from "../../const.js";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
+
+const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
+const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
       step: -1,
     };
-
-    // this._switchToNextScreen = this._switchToNextScreen.bind(this);
   }
 
   _switchToNextScreen() {
@@ -30,7 +33,7 @@ class App extends PureComponent {
 
     return (
       <GameScreen type={GameType.ARTIST}>
-        <ArtistQuestionScreen
+        <ArtistQuestionScreenWrapped
           question={question}
           onAnswer={() => this._switchToNextScreen()}
         />
@@ -43,7 +46,7 @@ class App extends PureComponent {
 
     return (
       <GameScreen type={GameType.GENRE}>
-        <GenreQuestionScreen
+        <GenreQuestionScreenWrapped
           question={question}
           onAnswer={() => this._switchToNextScreen()}
         />
