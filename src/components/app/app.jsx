@@ -15,7 +15,7 @@ class App extends PureComponent {
       step: -1,
     };
 
-    this._switchToNextScreen = this._switchToNextScreen.bind(this);
+    // this._switchToNextScreen = this._switchToNextScreen.bind(this);
   }
 
   _switchToNextScreen() {
@@ -32,7 +32,7 @@ class App extends PureComponent {
       <GameScreen type={GameType.ARTIST}>
         <ArtistQuestionScreen
           question={question}
-          onAnswer={this._switchToNextScreen}
+          onAnswer={() => this._switchToNextScreen()}
         />
       </GameScreen>
     );
@@ -45,7 +45,7 @@ class App extends PureComponent {
       <GameScreen type={GameType.GENRE}>
         <GenreQuestionScreen
           question={question}
-          onAnswer={this._switchToNextScreen}
+          onAnswer={() => this._switchToNextScreen()}
         />
       </GameScreen>
     );
@@ -60,7 +60,7 @@ class App extends PureComponent {
       return (
         <WelcomeScreen
           errorsCount={errorsCount}
-          onWelcomeButtonClick={this._switchToNextScreen}
+          onWelcomeButtonClick={() => this._switchToNextScreen()}
         />
       );
     }

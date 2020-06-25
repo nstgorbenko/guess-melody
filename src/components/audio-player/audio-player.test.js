@@ -10,6 +10,7 @@ describe(`AudioPlayer Component rendering`, () => {
     const tree = renderer
       .create(
           <AudioPlayer
+            onPlayButtonClick={() => {}}
             isPlaying={false}
             src={testSrc}
           />, {
