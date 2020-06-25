@@ -27,8 +27,10 @@ describe(`GenreQuestionScreen Component rendering`, () => {
           <GenreQuestionScreen
             question={testQuestion}
             onAnswer={() => {}}
-          />
-      )
+            renderPlayer={() => {}}
+          />, {
+            createNodeMock: () => ({})
+          })
       .toJSON();
 
     expect(tree).toMatchSnapshot();

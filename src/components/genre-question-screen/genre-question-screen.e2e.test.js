@@ -38,8 +38,9 @@ describe(`GenreQuestionScreen working test`, () => {
     const onAnswer = jest.fn();
     const genreQuestion = shallow(
         <GenreQuestionScreen
-          onAnswer={onAnswer}
           question={question}
+          onAnswer={onAnswer}
+          renderPlayer={() => {}}
         />
     );
 
@@ -60,8 +61,9 @@ describe(`GenreQuestionScreen working test`, () => {
 
     const genreQuestion = shallow(
         <GenreQuestionScreen
-          onAnswer={onAnswer}
           question={question}
+          onAnswer={onAnswer}
+          renderPlayer={() => {}}
         />
     );
 
