@@ -9,7 +9,7 @@ describe(`GameScreen Component rendering`, () => {
   it(`GameScreen Component should render correctly with type GameType.ARTIST`, () => {
     const tree = renderer
       .create(
-          <GameScreen type={GameType.ARTIST}>
+          <GameScreen type={GameType.ARTIST} mistakes={0}>
             {testChildren}
           </GameScreen>
       )
@@ -21,7 +21,7 @@ describe(`GameScreen Component rendering`, () => {
   it(`GameScreen Component should render correctly with type GameType.GENRE`, () => {
     const tree = renderer
       .create(
-          <GameScreen type={GameType.GENRE}>
+          <GameScreen type={GameType.GENRE} mistakes={0}>
             {testChildren}
           </GameScreen>
       )
