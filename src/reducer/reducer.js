@@ -1,4 +1,5 @@
 import {extend} from "../utils.js";
+import {GameType} from "../const.js";
 import questions from "../mocks/questions.js";
 
 const initialState = {
@@ -11,6 +12,41 @@ const initialState = {
 const ActionType = {
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
   NEXT_STEP: `NEXT_STEP`,
+};
+
+const isArtistAnswerCorrect = (question, userAnswer) => {
+  return userAnswer.artist === question.song.artist;
+};
+
+const isGenreAnswerCorrect = (question, userAnswer) => {
+  return userAnswer.every((song, i) => {
+    return song === (question.answers[i].genre === question.genre);
+  });
+};
+
+const ActionCreator = {
+  passNextStep: () => ({
+    type: ActionType.NEXT_STEP,
+    payload: 1,
+  }),
+
+  incrementMistakes: (question, userAnswer) => {
+    let answerIsCorrect = true;
+
+    switch (question.type) {
+      case GameType.ARTIST:
+        answerIsCorrect = isArtistAnswerCorrect(question, userAnswer);
+        break;
+      case GameType.GENRE:
+        answerIsCorrect = isGenreAnswerCorrect(question, userAnswer);
+        break;
+    }
+
+    return {
+      type: ActionType.INCREMENT_MISTAKES,
+      payload: answerIsCorrect ? 0 : 1,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,4 +63,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {ActionType, reducer};
+export {ActionCreator, ActionType, reducer};
