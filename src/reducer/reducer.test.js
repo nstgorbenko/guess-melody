@@ -17,7 +17,7 @@ describe(`Reducer work properly`, () => {
 
   it(`Reducer should increment number of mistakes by a given value`, () => {
     expect(reducer(testInitialState, {
-      type: ActionType.INCREMENT_MISTAKES,
+      type: ActionType.CHECK_MISTAKES,
       payload: 1,
     })).toEqual({
       mistakes: 1,
@@ -27,7 +27,7 @@ describe(`Reducer work properly`, () => {
     });
 
     expect(reducer(testInitialState, {
-      type: ActionType.INCREMENT_MISTAKES,
+      type: ActionType.CHECK_MISTAKES,
       payload: 0,
     })).toEqual({
       mistakes: 0,
@@ -39,7 +39,7 @@ describe(`Reducer work properly`, () => {
 
   it(`Reducer should increment current step by a given value`, () => {
     expect(reducer(testInitialState, {
-      type: ActionType.NEXT_STEP,
+      type: ActionType.TAKE_STEP,
       payload: 1,
     })).toEqual({
       mistakes: 0,
@@ -49,7 +49,7 @@ describe(`Reducer work properly`, () => {
     });
 
     expect(reducer(testInitialState, {
-      type: ActionType.NEXT_STEP,
+      type: ActionType.TAKE_STEP,
       payload: 0,
     })).toEqual({
       mistakes: 0,
@@ -61,15 +61,15 @@ describe(`Reducer work properly`, () => {
 });
 
 describe(`Action creators work properly`, () => {
-  it(`Action creator changing step returns correct action`, () => {
-    expect(ActionCreator.passNextStep()).toEqual({
-      type: ActionType.NEXT_STEP,
+  it(`Action creator changing step returns action with 1 payload`, () => {
+    expect(ActionCreator.takeNextStep()).toEqual({
+      type: ActionType.TAKE_STEP,
       payload: 1,
     });
   });
 
   it(`Action creator for incrementing mistakes returns action with 0 payload if answer for artist is correct`, () => {
-    expect(ActionCreator.incrementMistakes({
+    expect(ActionCreator.checkMistakes({
       type: `artist`,
       song: {
         artist: `correct`,
@@ -91,13 +91,13 @@ describe(`Action creators work properly`, () => {
       artist: `correct`,
       picture: ``,
     })).toEqual({
-      type: ActionType.INCREMENT_MISTAKES,
+      type: ActionType.CHECK_MISTAKES,
       payload: 0,
     });
   });
 
   it(`Action creator for incrementing mistakes returns action with 1 payload if answer for artist is incorrect`, () => {
-    expect(ActionCreator.incrementMistakes({
+    expect(ActionCreator.checkMistakes({
       type: `artist`,
       song: {
         artist: `correct`,
@@ -119,13 +119,13 @@ describe(`Action creators work properly`, () => {
       artist: `incorrect`,
       picture: ``,
     })).toEqual({
-      type: ActionType.INCREMENT_MISTAKES,
+      type: ActionType.CHECK_MISTAKES,
       payload: 1,
     });
   });
 
   it(`Action creator for incrementing mistakes returns action with 0 payload if answer for genre is correct`, () => {
-    expect(ActionCreator.incrementMistakes({
+    expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,
       answers: [
@@ -144,13 +144,13 @@ describe(`Action creators work properly`, () => {
         },
       ]
     }, [false, true, false, false])).toEqual({
-      type: ActionType.INCREMENT_MISTAKES,
+      type: ActionType.CHECK_MISTAKES,
       payload: 0,
     });
   });
 
   it(`Action creator for incrementing mistakes returns action with 1 payload if answer for genre is incorrect`, () => {
-    expect(ActionCreator.incrementMistakes({
+    expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,
       answers: [
@@ -169,7 +169,7 @@ describe(`Action creators work properly`, () => {
         },
       ]
     }, [true, true, true, true])).toEqual({
-      type: ActionType.INCREMENT_MISTAKES,
+      type: ActionType.CHECK_MISTAKES,
       payload: 1,
     });
   });

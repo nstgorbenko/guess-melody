@@ -1,3 +1,4 @@
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -40,5 +41,9 @@ GameScreen.propTypes = {
   ]).isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  mistakes: state.mistakes,
+});
 
-export default GameScreen;
+export {GameScreen};
+export default connect(mapStateToProps)(GameScreen);

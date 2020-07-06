@@ -1,5 +1,4 @@
-import {extend} from "../utils.js";
-import {GameType} from "../const.js";
+import {checkAnswerResult} from "../utils/mistake.js";
 import questions from "../mocks/questions.js";
 
 const initialState = {
@@ -10,54 +9,44 @@ const initialState = {
 };
 
 const ActionType = {
-  INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
-  NEXT_STEP: `NEXT_STEP`,
-};
-
-const isArtistAnswerCorrect = (question, userAnswer) => {
-  return userAnswer.artist === question.song.artist;
-};
-
-const isGenreAnswerCorrect = (question, userAnswer) => {
-  return userAnswer.every((song, i) => {
-    return song === (question.answers[i].genre === question.genre);
-  });
+  CHECK_MISTAKES: `CHECK_MISTAKES`,
+  START_OVER: `START_OVER`,
+  TAKE_STEP: `TAKE_STEP`,
 };
 
 const ActionCreator = {
-  passNextStep: () => ({
-    type: ActionType.NEXT_STEP,
-    payload: 1,
-  }),
-
-  incrementMistakes: (question, userAnswer) => {
-    let answerIsCorrect = true;
-
-    switch (question.type) {
-      case GameType.ARTIST:
-        answerIsCorrect = isArtistAnswerCorrect(question, userAnswer);
-        break;
-      case GameType.GENRE:
-        answerIsCorrect = isGenreAnswerCorrect(question, userAnswer);
-        break;
-    }
+  checkMistakes: (question, userAnswer) => {
+    const isAnswerCorrect = checkAnswerResult(question, userAnswer);
 
     return {
-      type: ActionType.INCREMENT_MISTAKES,
-      payload: answerIsCorrect ? 0 : 1,
+      type: ActionType.CHECK_MISTAKES,
+      payload: isAnswerCorrect ? 0 : 1,
     };
   },
+
+  startOver: () => ({
+    type: ActionType.START_OVER,
+  }),
+
+  takeNextStep: () => ({
+    type: ActionType.TAKE_STEP,
+    payload: 1,
+  }),
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.INCREMENT_MISTAKES:
-      return extend(state, {
+    case ActionType.CHECK_MISTAKES:
+      return Object.assign({}, state, {
         mistakes: state.mistakes + action.payload,
       });
-    case ActionType.NEXT_STEP:
-      return extend(state, {
+    case ActionType.TAKE_STEP:
+      return Object.assign({}, state, {
         step: state.step + action.payload,
+      });
+    case ActionType.START_OVER:
+      return Object.assign({}, initialState, {
+        step: 0,
       });
   }
   return state;

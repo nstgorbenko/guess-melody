@@ -9,5 +9,9 @@ exports[`Mistakes Component rendering Mistakes Component should render correctly
 exports[`Mistakes Component rendering Mistakes Component should render correctly with 1 count 1`] = `
 <div
   className="game__mistakes"
-/>
+>
+  <div
+    className="wrong"
+  />
+</div>
 `;
