@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import {GameType} from "../../const.js";
+import GenreQuestionItem from "../genre-question-item/genre-question-item.jsx";
 
 const GenreQuestionScreen = (props) => {
   const {question, userAnswers, onAnswer, onChange, renderPlayer} = props;
@@ -17,18 +18,13 @@ const GenreQuestionScreen = (props) => {
         }}
       >
         {answers.map((answer, index) => (
-          <div className="track" key={`${index}-${answer.src}`}>
-            {renderPlayer(answer.src, index)}
-            <div className="game__answer">
-              <input className="game__input visually-hidden" type="checkbox" name="answer"
-                value={`answer-${index}`}
-                id={`answer-${index}`}
-                checked={userAnswers[index]}
-                onChange={(evt) => onChange(index, evt.target.checked)}
-              />
-              <label className="game__check" htmlFor={`answer-${index}`}>Отметить</label>
-            </div>
-          </div>
+          <GenreQuestionItem key={`${index}-${answer.src}`}
+            answer={answer}
+            id={index}
+            userAnswer={userAnswers[index]}
+            onChange={onChange}
+            renderPlayer={renderPlayer}
+          />
         ))}
 
         <button className="game__submit button" type="submit">Ответить</button>
@@ -46,7 +42,7 @@ GenreQuestionScreen.propTypes = {
     genre: PropTypes.string.isRequired,
     type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
   }).isRequired,
-  userAnswers: PropTypes.arrayOf(Boolean).isRequired,
+  userAnswers: PropTypes.arrayOf(PropTypes.bool).isRequired,
   onAnswer: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   renderPlayer: PropTypes.func.isRequired,

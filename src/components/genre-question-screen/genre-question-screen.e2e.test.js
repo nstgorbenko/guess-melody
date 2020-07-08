@@ -1,5 +1,5 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, shallow, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import GenreQuestionScreen from "./genre-question-screen.jsx";
 
@@ -60,7 +60,7 @@ describe(`GenreQuestionScreen working test`, () => {
     const {question} = mock;
     const onChange = jest.fn();
 
-    const genreQuestion = shallow(
+    const genreQuestion = mount(
         <GenreQuestionScreen
           question={question}
           userAnswers={[false, false, false, false]}
