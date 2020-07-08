@@ -8,28 +8,17 @@ configure({
 });
 
 describe(`AudioPlayer working test`, () => {
-  it(`AudioPlayer button initial state is "pause". When user click on button it change its view to "play" and back to "pause" after second click`, () => {
-    const isPlaying = true;
-    const onPlayButtonClick = jest.fn();
+  it(`Click on Play button calls callback`, () => {
+    const onClick = jest.fn();
 
     const audioPlayer = shallow(<AudioPlayer
-      isPlaying = {isPlaying}
-      onPlayButtonClick = {onPlayButtonClick}
-      src = {``}/>,
-    {disableLifecycleMethods: true});
+      isLoading={false}
+      isPlaying={false}
+      onClick={onClick}>
+      <audio />
+    </AudioPlayer>);
 
-    const playButton = audioPlayer.find(`.track__button`);
-
-    expect(audioPlayer.exists(`.track__button--pause`)).toBe(true);
-
-    playButton.simulate(`click`);
-    expect(onPlayButtonClick).toHaveBeenCalledTimes(1);
-    expect(audioPlayer.exists(`.track__button--play`)).toBe(true);
-    expect(audioPlayer.exists(`.track__button--pause`)).toBe(false);
-
-    playButton.simulate(`click`);
-    expect(onPlayButtonClick).toHaveBeenCalledTimes(2);
-    expect(audioPlayer.exists(`.track__button--pause`)).toBe(true);
-    expect(audioPlayer.exists(`.track__button--play`)).toBe(false);
+    audioPlayer.find(`.track__button`).simulate(`click`);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
