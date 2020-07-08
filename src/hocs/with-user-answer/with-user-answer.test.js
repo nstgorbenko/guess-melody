@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import GenreQuestionScreen from "./genre-question-screen.jsx";
+
+import withUserAnswer from "./with-user-answer.js";
 
 const testQuestion = {
   type: `genre`,
@@ -20,19 +21,18 @@ const testQuestion = {
   }],
 };
 
-describe(`GenreQuestionScreen Component rendering`, () => {
-  it(`GenreQuestionScreen Component should render correctly`, () => {
+const MockComponent = () => (<div></div>);
+
+describe(`WithUserAnswer HOC rendering`, () => {
+  it(`WithUserAnswer should render correctly`, () => {
+    const MockComponentWrapped = withUserAnswer(MockComponent);
+
     const tree = renderer
-      .create(
-          <GenreQuestionScreen
-            question={testQuestion}
-            userAnswers={[false, false, false, false]}
-            onAnswer={() => {}}
-            onChange={() => {}}
-            renderPlayer={() => {}}
-          />, {
-            createNodeMock: () => ({})
-          })
+      .create(<MockComponentWrapped question={testQuestion}
+        userAnswers={[false, true, false, false]}
+        onAnswer={() => {}}
+        onChange={() => {}}
+      />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
