@@ -5,10 +5,12 @@ import PropTypes from "prop-types";
 
 import {ActionCreator} from "../../reducer/reducer.js";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
+import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
 import {GameType, START_STEP} from "../../const.js";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
+import WinScreen from "../win-screen/win-screen.jsx";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player.js";
 import withUserAnswer from "../../hocs/with-user-answer/with-user-answer.js";
 
@@ -57,11 +59,20 @@ class App extends PureComponent {
       );
     }
 
-    if (step >= questions.length || mistakes >= maxMistakes) {
+    if (mistakes >= maxMistakes) {
       return (
-        <WelcomeScreen
-          errorsCount={maxMistakes}
-          onWelcomeButtonClick={onStartOver}
+        <GameOverScreen
+          onReplayButtonClick={onStartOver}
+        />
+      );
+    }
+
+    if (step >= questions.length) {
+      return (
+        <WinScreen
+          questionsCount={questions.length}
+          mistakesCount={mistakes}
+          onReplayButtonClick={onStartOver}
         />
       );
     }
