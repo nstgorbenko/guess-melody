@@ -26,6 +26,7 @@ const ActionCreator = {
 
   startOver: () => ({
     type: ActionType.START_OVER,
+    payload: null,
   }),
 
   takeNextStep: () => ({
@@ -45,9 +46,7 @@ const reducer = (state = initialState, action) => {
         step: state.step + action.payload,
       });
     case ActionType.START_OVER:
-      return Object.assign({}, initialState, {
-        step: 0,
-      });
+      return Object.assign({}, initialState);
   }
   return state;
 };

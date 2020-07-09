@@ -116,4 +116,58 @@ describe(`App Component rendering`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`App Component should render GameOverScreen correctly`, () => {
+    const store = testStore({
+      mistakes: 3,
+    });
+
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <App
+              mistakes={3}
+              maxMistakes={3}
+              questions={testQuestions}
+              onUserAnswer={() => {}}
+              onWelcomeButtonClick={() => {}}
+              onStartOver={() => {}}
+              step={1}
+            />
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App Component should render WinScreen correctly`, () => {
+    const store = testStore({
+      mistakes: 3,
+    });
+
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <App
+              mistakes={0}
+              maxMistakes={3}
+              questions={testQuestions}
+              onUserAnswer={() => {}}
+              onWelcomeButtonClick={() => {}}
+              onStartOver={() => {}}
+              step={3}
+            />
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

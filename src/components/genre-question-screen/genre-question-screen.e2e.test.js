@@ -1,5 +1,5 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, shallow, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import GenreQuestionScreen from "./genre-question-screen.jsx";
 
@@ -39,7 +39,9 @@ describe(`GenreQuestionScreen working test`, () => {
     const genreQuestion = shallow(
         <GenreQuestionScreen
           question={question}
+          userAnswers={[false, false, false, false]}
           onAnswer={onAnswer}
+          onChange={() => {}}
           renderPlayer={() => {}}
         />
     );
@@ -54,29 +56,26 @@ describe(`GenreQuestionScreen working test`, () => {
     expect(formSendPrevention).toHaveBeenCalledTimes(1);
   });
 
-  it(`Data passed to callback is consistent with user answer`, () => {
+  it(`Data passed to onChange callback is consistent with input data`, () => {
     const {question} = mock;
-    const onAnswer = jest.fn((...args) => [...args]);
-    const userAnswer = [false, true, false, false];
+    const onChange = jest.fn();
 
-    const genreQuestion = shallow(
+    const genreQuestion = mount(
         <GenreQuestionScreen
           question={question}
-          onAnswer={onAnswer}
+          userAnswers={[false, false, false, false]}
+          onAnswer={() => {}}
+          onChange={onChange}
           renderPlayer={() => {}}
         />
     );
 
-    const form = genreQuestion.find(`form`);
-    const secondInput = genreQuestion.find(`input`).at(1);
+    const secondIndex = 1;
+    const secondInput = genreQuestion.find(`input`).at(secondIndex);
 
     secondInput.simulate(`change`, {target: {checked: true}});
-    form.simulate(`submit`, {preventDefault() {}});
 
-    expect(onAnswer).toHaveBeenCalledTimes(1);
-    expect(onAnswer).toHaveBeenCalledWith(question, userAnswer);
-
-    const inputCheckedValues = genreQuestion.find(`input`).map((input) => input.prop(`checked`));
-    expect(inputCheckedValues).toEqual(userAnswer);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(secondIndex, true);
   });
 });
