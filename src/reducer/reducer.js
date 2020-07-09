@@ -26,6 +26,7 @@ const ActionCreator = {
 
   startOver: () => ({
     type: ActionType.START_OVER,
+    payload: null,
   }),
 
   takeNextStep: () => ({

@@ -58,6 +58,32 @@ describe(`Reducer work properly`, () => {
       questions
     });
   });
+
+  it(`Reducer should return initial state`, () => {
+    expect(reducer({
+      step: 5,
+      mistakes: 1,
+    }, {
+      type: ActionType.START_OVER,
+      payload: null,
+    })).toEqual(testInitialState);
+
+    expect(reducer({
+      step: 0,
+      mistakes: 0,
+    }, {
+      type: ActionType.START_OVER,
+      payload: null,
+    })).toEqual(testInitialState);
+
+    expect(reducer({
+      step: -1,
+      mistakes: 0,
+    }, {
+      type: ActionType.START_OVER,
+      payload: null,
+    })).toEqual(testInitialState);
+  });
 });
 
 describe(`Action creators work properly`, () => {
@@ -172,5 +198,13 @@ describe(`Action creators work properly`, () => {
       type: ActionType.CHECK_MISTAKES,
       payload: 1,
     });
+  });
+
+  it(`Action creator for start game over returns action with null payload`, () => {
+    expect(ActionCreator.startOver())
+      .toEqual({
+        type: ActionType.START_OVER,
+        payload: null,
+      });
   });
 });
