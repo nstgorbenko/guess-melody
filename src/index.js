@@ -1,4 +1,5 @@
 import {createStore, applyMiddleware} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -9,7 +10,11 @@ import createAPI from "./api.js";
 import {reducer, Operation as DataOperation} from "./reducer/reducer.js";
 
 const api = createAPI(() => {});
-const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)));
+const store = createStore(
+    reducer,
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api)))
+);
 
 store.dispatch(DataOperation.loadQuestions());
 
