@@ -1,20 +1,25 @@
 import {checkAnswerResult} from "../utils/mistake.js";
-import questions from "../mocks/questions.js";
 
 const initialState = {
   mistakes: 0,
   maxMistakes: 3,
   step: -1,
-  questions
+  questions: []
 };
 
 const ActionType = {
+  LOAD_QUESTIONS: `LOAD_QUESTIONS`,
   CHECK_MISTAKES: `CHECK_MISTAKES`,
   START_OVER: `START_OVER`,
   TAKE_STEP: `TAKE_STEP`,
 };
 
 const ActionCreator = {
+  loadQuestions: (questions) => ({
+    type: ActionType.LOAD_QUESTIONS,
+    payload: questions,
+  }),
+
   checkMistakes: (question, userAnswer) => {
     const isAnswerCorrect = checkAnswerResult(question, userAnswer);
 
@@ -35,8 +40,21 @@ const ActionCreator = {
   }),
 };
 
+const Operation = {
+  loadQuestions: () => (dispatch, getStore, api) => {
+    return api.get(`/questions`)
+      .then((response) => {
+        dispatch(ActionCreator.loadQuestions(response.data));
+      });
+  },
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_QUESTIONS:
+      return Object.assign({}, state, {
+        questions: action.payload,
+      });
     case ActionType.CHECK_MISTAKES:
       return Object.assign({}, state, {
         mistakes: state.mistakes + action.payload,
@@ -51,4 +69,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {ActionCreator, ActionType, reducer};
+export {ActionCreator, Operation, ActionType, reducer};

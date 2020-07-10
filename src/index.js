@@ -5,12 +5,13 @@ import ReactDOM from "react-dom";
 import thunk from "redux-thunk";
 
 import App from "./components/app/app.jsx";
-import {createAPI} from "./api.js";
-import {reducer} from "./reducer/reducer.js";
+import createAPI from "./api.js";
+import {reducer, Operation as DataOperation} from "./reducer/reducer.js";
 
 const api = createAPI(() => {});
-
 const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)));
+
+store.dispatch(DataOperation.loadQuestions());
 
 ReactDOM.render(
     <Provider store={store}>

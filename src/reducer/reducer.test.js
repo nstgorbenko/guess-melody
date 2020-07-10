@@ -1,21 +1,70 @@
-import {ActionCreator, ActionType, reducer} from "./reducer.js";
-import questions from "../mocks/questions.js";
+import {ActionCreator, ActionType, Operation, reducer} from "./reducer.js";
+import createAPI from "../api.js";
+import MockAdapter from "axios-mock-adapter";
 
 const testInitialState = {
   mistakes: 0,
   maxMistakes: 3,
   step: -1,
-  questions
+  questions: []
 };
 
+const testQuestions = [{
+  type: `genre`,
+  genre: `rock`,
+  answers: [{
+    src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+    genre: `rock`,
+  }, {
+    src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+    genre: `blues`,
+  }, {
+    src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+    genre: `jazz`,
+  }, {
+    src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+    genre: `rock`,
+  }],
+}, {
+  type: `artist`,
+  song: {
+    artist: `Jim Beam`,
+    src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+  },
+  answers: [{
+    picture: `https://api.adorable.io/avatars/128/1`,
+    artist: `John Snow`,
+  }, {
+    picture: `https://api.adorable.io/avatars/128/2`,
+    artist: `Jack Daniels`,
+  }, {
+    picture: `https://api.adorable.io/avatars/128/3`,
+    artist: `Jim Beam`,
+  }],
+}];
+
+const api = createAPI(() => {});
+
 describe(`Reducer work properly`, () => {
-  it(`Reducer shouls return initial state without additional parameters`, () => {
+  it(`should return initial state without additional parameters`, () => {
     const initialReducer = reducer(undefined, {});
 
     expect(initialReducer).toEqual(testInitialState);
   });
 
-  it(`Reducer should increment number of mistakes by a given value`, () => {
+  it(`should update questions by load`, () => {
+    expect(reducer(testInitialState, {
+      type: ActionType.LOAD_QUESTIONS,
+      payload: testQuestions,
+    })).toEqual({
+      mistakes: 0,
+      maxMistakes: 3,
+      step: -1,
+      questions: testQuestions
+    });
+  });
+
+  it(`should increment number of mistakes by a given value`, () => {
     expect(reducer(testInitialState, {
       type: ActionType.CHECK_MISTAKES,
       payload: 1,
@@ -23,7 +72,7 @@ describe(`Reducer work properly`, () => {
       mistakes: 1,
       maxMistakes: 3,
       step: -1,
-      questions
+      questions: []
     });
 
     expect(reducer(testInitialState, {
@@ -33,11 +82,11 @@ describe(`Reducer work properly`, () => {
       mistakes: 0,
       maxMistakes: 3,
       step: -1,
-      questions
+      questions: []
     });
   });
 
-  it(`Reducer should increment current step by a given value`, () => {
+  it(`should increment current step by a given value`, () => {
     expect(reducer(testInitialState, {
       type: ActionType.TAKE_STEP,
       payload: 1,
@@ -45,7 +94,7 @@ describe(`Reducer work properly`, () => {
       mistakes: 0,
       maxMistakes: 3,
       step: 0,
-      questions
+      questions: []
     });
 
     expect(reducer(testInitialState, {
@@ -55,11 +104,11 @@ describe(`Reducer work properly`, () => {
       mistakes: 0,
       maxMistakes: 3,
       step: -1,
-      questions
+      questions: []
     });
   });
 
-  it(`Reducer should return initial state`, () => {
+  it(`should return initial state`, () => {
     expect(reducer({
       step: 5,
       mistakes: 1,
@@ -87,14 +136,14 @@ describe(`Reducer work properly`, () => {
 });
 
 describe(`Action creators work properly`, () => {
-  it(`Action creator changing step returns action with 1 payload`, () => {
+  it(`returns action with 1 payload`, () => {
     expect(ActionCreator.takeNextStep()).toEqual({
       type: ActionType.TAKE_STEP,
       payload: 1,
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 0 payload if answer for artist is correct`, () => {
+  it(`returns action with 0 payload if answer for artist is correct`, () => {
     expect(ActionCreator.checkMistakes({
       type: `artist`,
       song: {
@@ -122,7 +171,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 1 payload if answer for artist is incorrect`, () => {
+  it(`returns action with 1 payload if answer for artist is incorrect`, () => {
     expect(ActionCreator.checkMistakes({
       type: `artist`,
       song: {
@@ -150,7 +199,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 0 payload if answer for genre is correct`, () => {
+  it(`returns action with 0 payload if answer for genre is correct`, () => {
     expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,
@@ -175,7 +224,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 1 payload if answer for genre is incorrect`, () => {
+  it(`mistakes returns action with 1 payload if answer for genre is incorrect`, () => {
     expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,
@@ -200,11 +249,32 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for start game over returns action with null payload`, () => {
+  it(`returns action with null payload`, () => {
     expect(ActionCreator.startOver())
       .toEqual({
         type: ActionType.START_OVER,
         payload: null,
+      });
+  });
+});
+
+describe(`Operation work properly`, () => {
+  it(`make a correct API call to /questions`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const questionLoader = Operation.loadQuestions();
+
+    apiMock
+      .onGet(`/questions`)
+      .reply(200, [{fake: true}]);
+
+    return questionLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledWith({
+          type: ActionType.LOAD_QUESTIONS,
+          payload: [{fake: true}],
+        });
       });
   });
 });
