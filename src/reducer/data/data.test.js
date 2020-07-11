@@ -1,4 +1,4 @@
-import {ActionType, Operation, reducer} from "./data.js";
+import {ActionCreator, ActionType, Operation, reducer} from "./data.js";
 import createAPI from "../../api.js";
 import MockAdapter from "axios-mock-adapter";
 
@@ -55,6 +55,31 @@ describe(`Reducer work properly`, () => {
       payload: testQuestions,
     })).toEqual({
       questions: testQuestions
+    });
+  });
+
+  it(`should update questions with [null] value`, () => {
+    expect(reducer(testInitialState, {
+      type: ActionType.STUB_BAD_DATA,
+      payload: [null],
+    })).toEqual({
+      questions: [null]
+    });
+  });
+});
+
+describe(`Action creators work properly`, () => {
+  it(`returns action with given value`, () => {
+    expect(ActionCreator.loadQuestions(testQuestions)).toEqual({
+      type: ActionType.LOAD_QUESTIONS,
+      payload: testQuestions,
+    });
+  });
+
+  it(`returns action with [null] payload`, () => {
+    expect(ActionCreator.stubBadData()).toEqual({
+      type: ActionType.STUB_BAD_DATA,
+      payload: [null],
     });
   });
 });

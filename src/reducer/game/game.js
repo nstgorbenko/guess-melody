@@ -33,21 +33,8 @@ const ActionCreator = {
   }),
 };
 
-const Operation = {
-  loadQuestions: () => (dispatch, getStore, api) => {
-    return api.get(`/questions`)
-      .then((response) => {
-        dispatch(ActionCreator.loadQuestions(response.data));
-      });
-  },
-};
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_QUESTIONS:
-      return Object.assign({}, state, {
-        questions: action.payload,
-      });
     case ActionType.CHECK_MISTAKES:
       return Object.assign({}, state, {
         mistakes: state.mistakes + action.payload,
@@ -62,4 +49,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {ActionCreator, ActionType, Operation, reducer};
+export {ActionCreator, ActionType, reducer};

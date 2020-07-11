@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorScreen Component rendering should render correctly 1`] = `
+<section
+  className="result"
+>
+  <div
+    className="result__logo"
+  >
+    <img
+      alt="Угадай мелодию"
+      height="83"
+      src="img/melody-logo.png"
+      width="186"
+    />
+  </div>
+  <h2
+    className="result__title"
+  >
+    Упс!
+  </h2>
+  <p
+    className="result__total result__total--fail"
+  >
+    Что-то пошло не так, перезагрузите страницу.
+  </p>
+</section>
+`;

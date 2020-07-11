@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import {ActionCreator} from "../../reducer/game/game.js";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
+import ErrorScreen from "../error-screen/error-screen.jsx";
 import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
 import {GameType, START_STEP} from "../../const.js";
@@ -52,7 +53,13 @@ class App extends PureComponent {
     const {mistakes, maxMistakes, questions, step, onWelcomeButtonClick, onStartOver} = this.props;
     const question = questions[step];
 
-    if (step === START_STEP) {
+    if (questions[0] === null) {
+      return (
+        <ErrorScreen />
+      );
+    }
+
+    if (step === START_STEP && questions.length > 0) {
       return (
         <WelcomeScreen
           errorsCount={maxMistakes}
@@ -139,7 +146,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onStartOver() {
     dispatch(ActionCreator.startOver());
-  }
+  },
 });
 
 export {App};

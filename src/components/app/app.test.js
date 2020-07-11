@@ -46,7 +46,7 @@ const testQuestions = [
 describe(`App Component rendering`, () => {
   it(`App Component should render WelcomeScreen correctly`, () => {
     const store = testStore({
-      mistakes: 0,
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -69,7 +69,7 @@ describe(`App Component rendering`, () => {
 
   it(`App Component should render GenreQuestionScreen correctly`, () => {
     const store = testStore({
-      mistakes: 3,
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -94,7 +94,7 @@ describe(`App Component rendering`, () => {
 
   it(`App Component should render ArtistQuestionScreen correctly`, () => {
     const store = testStore({
-      mistakes: 3,
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -119,7 +119,7 @@ describe(`App Component rendering`, () => {
 
   it(`App Component should render GameOverScreen correctly`, () => {
     const store = testStore({
-      mistakes: 3,
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -146,7 +146,7 @@ describe(`App Component rendering`, () => {
 
   it(`App Component should render WinScreen correctly`, () => {
     const store = testStore({
-      mistakes: 3,
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
