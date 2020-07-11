@@ -16,6 +16,14 @@ const withUserAnswer = (Component) => {
       this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+      if (this.props.question !== prevProps.question) {
+        this.setState({
+          answers: new Array(this.props.question.answers.length).fill(false),
+        });
+      }
+    }
+
     handleAnswer() {
       const {onAnswer, question} = this.props;
       const {answers} = this.state;
