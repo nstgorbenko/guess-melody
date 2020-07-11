@@ -1,15 +1,13 @@
-import GameOverScreen from "./game-over-screen.jsx";
+import ErrorScreen from "./error-screen.jsx";
 
 import React from "react";
 import renderer from "react-test-renderer";
 
-describe(`GameOverScreen Component rendering`, () => {
+describe(`ErrorScreen Component rendering`, () => {
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
-          <GameOverScreen
-            onReplayButtonClick={() => {}}
-          />)
+          <ErrorScreen />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

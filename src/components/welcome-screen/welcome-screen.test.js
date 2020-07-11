@@ -1,9 +1,10 @@
-import React from "react";
-import renderer from "react-test-renderer";
 import WelcomeScreen from "./welcome-screen.jsx";
 
+import React from "react";
+import renderer from "react-test-renderer";
+
 describe(`WelcomeScreen Component rendering`, () => {
-  it(`WelcomeScreen Component should render correctly`, () => {
+  it(`renders correctly`, () => {
     const tree = renderer
       .create(
           <WelcomeScreen

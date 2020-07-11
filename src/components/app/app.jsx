@@ -3,12 +3,15 @@ import {connect} from "react-redux";
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/game/game.js";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
+import ErrorScreen from "../error-screen/error-screen.jsx";
 import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
 import {GameType, START_STEP} from "../../const.js";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
+import {getMaxMistakes, getMistakes, getStep} from "../../reducer/game/selectors.js";
+import {getQuestions} from "../../reducer/data/selectors.js";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import WinScreen from "../win-screen/win-screen.jsx";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player.js";
@@ -50,7 +53,13 @@ class App extends PureComponent {
     const {mistakes, maxMistakes, questions, step, onWelcomeButtonClick, onStartOver} = this.props;
     const question = questions[step];
 
-    if (step === START_STEP) {
+    if (questions[0] === null) {
+      return (
+        <ErrorScreen />
+      );
+    }
+
+    if (step === START_STEP && questions.length > 0) {
       return (
         <WelcomeScreen
           errorsCount={maxMistakes}
@@ -121,10 +130,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  mistakes: state.mistakes,
-  maxMistakes: state.maxMistakes,
-  step: state.step,
-  questions: state.questions,
+  mistakes: getMistakes(state),
+  maxMistakes: getMaxMistakes(state),
+  step: getStep(state),
+  questions: getQuestions(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -137,7 +146,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onStartOver() {
     dispatch(ActionCreator.startOver());
-  }
+  },
 });
 
 export {App};

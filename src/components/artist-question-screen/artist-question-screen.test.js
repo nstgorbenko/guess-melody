@@ -1,8 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
 import ArtistQuestionScreen from './artist-question-screen.jsx';
 
-const testQuestion = {
+import React from 'react';
+import renderer from 'react-test-renderer';
+
+const mockQuestion = {
   type: `artist`,
   song: {
     artist: `Jim Beam`,
@@ -21,11 +22,11 @@ const testQuestion = {
 };
 
 describe(`ArtistQuestionScreen Component rendering`, () => {
-  it(`ArtistQuestionScreen Component should render correctly`, () => {
+  it(`renders correctly`, () => {
     const tree = renderer
       .create(
           <ArtistQuestionScreen
-            question={testQuestion}
+            question={mockQuestion}
             onAnswer={() => {}}
             renderPlayer={() => {}}
           />, {

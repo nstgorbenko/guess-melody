@@ -1,8 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
 import GenreQuestionScreen from "./genre-question-screen.jsx";
 
-const testQuestion = {
+import React from "react";
+import renderer from "react-test-renderer";
+
+const mockQuestion = {
   type: `genre`,
   genre: `rock`,
   answers: [{
@@ -25,7 +26,7 @@ describe(`GenreQuestionScreen Component rendering`, () => {
     const tree = renderer
       .create(
           <GenreQuestionScreen
-            question={testQuestion}
+            question={mockQuestion}
             userAnswers={[false, false, false, false]}
             onAnswer={() => {}}
             onChange={() => {}}

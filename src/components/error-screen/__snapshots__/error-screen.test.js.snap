@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GameOverScreen Component rendering renders correctly 1`] = `
+exports[`ErrorScreen Component rendering renders correctly 1`] = `
 <section
   className="result"
 >
@@ -17,19 +17,12 @@ exports[`GameOverScreen Component rendering renders correctly 1`] = `
   <h2
     className="result__title"
   >
-    Какая жалость!
+    Упс!
   </h2>
   <p
     className="result__total result__total--fail"
   >
-    У вас закончились все попытки. Ничего, повезёт в следующий раз!
+    Что-то пошло не так, перезагрузите страницу.
   </p>
-  <button
-    className="replay"
-    onClick={[Function]}
-    type="button"
-  >
-    Попробовать ещё раз
-  </button>
 </section>
 `;

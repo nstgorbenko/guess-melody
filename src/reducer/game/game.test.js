@@ -1,72 +1,66 @@
-import {ActionCreator, ActionType, reducer} from "./reducer.js";
-import questions from "../mocks/questions.js";
+import {ActionCreator, ActionType, reducer} from "./game.js";
 
-const testInitialState = {
+const mockInitialState = {
   mistakes: 0,
   maxMistakes: 3,
   step: -1,
-  questions
 };
 
-describe(`Reducer work properly`, () => {
-  it(`Reducer shouls return initial state without additional parameters`, () => {
+describe(`Reducer working test`, () => {
+  it(`return initial state without additional parameters`, () => {
     const initialReducer = reducer(undefined, {});
 
-    expect(initialReducer).toEqual(testInitialState);
+    expect(initialReducer).toEqual(mockInitialState);
   });
 
-  it(`Reducer should increment number of mistakes by a given value`, () => {
-    expect(reducer(testInitialState, {
+  it(`increments number of mistakes by a given value`, () => {
+    expect(reducer(mockInitialState, {
       type: ActionType.CHECK_MISTAKES,
       payload: 1,
     })).toEqual({
       mistakes: 1,
       maxMistakes: 3,
       step: -1,
-      questions
     });
 
-    expect(reducer(testInitialState, {
+    expect(reducer(mockInitialState, {
       type: ActionType.CHECK_MISTAKES,
       payload: 0,
     })).toEqual({
       mistakes: 0,
       maxMistakes: 3,
       step: -1,
-      questions
     });
   });
 
-  it(`Reducer should increment current step by a given value`, () => {
-    expect(reducer(testInitialState, {
+  it(`increments current step by a given value`, () => {
+    expect(reducer(mockInitialState, {
       type: ActionType.TAKE_STEP,
       payload: 1,
     })).toEqual({
       mistakes: 0,
       maxMistakes: 3,
       step: 0,
-      questions
     });
 
-    expect(reducer(testInitialState, {
+    expect(reducer(mockInitialState, {
       type: ActionType.TAKE_STEP,
       payload: 0,
     })).toEqual({
       mistakes: 0,
       maxMistakes: 3,
       step: -1,
-      questions
     });
   });
 
-  it(`Reducer should return initial state`, () => {
+  it(`returns initial state`, () => {
     expect(reducer({
       step: 5,
       mistakes: 1,
     }, {
       type: ActionType.START_OVER,
       payload: null,
-    })).toEqual(testInitialState);
+    })).toEqual(mockInitialState);
 
     expect(reducer({
       step: 0,
@@ -74,7 +68,7 @@ describe(`Reducer work properly`, () => {
     }, {
       type: ActionType.START_OVER,
       payload: null,
-    })).toEqual(testInitialState);
+    })).toEqual(mockInitialState);
 
     expect(reducer({
       step: -1,
@@ -82,19 +76,19 @@ describe(`Reducer work properly`, () => {
     }, {
       type: ActionType.START_OVER,
       payload: null,
-    })).toEqual(testInitialState);
+    })).toEqual(mockInitialState);
   });
 });
 
-describe(`Action creators work properly`, () => {
-  it(`Action creator changing step returns action with 1 payload`, () => {
+describe(`Action creators working test`, () => {
+  it(`returns action with 1 payload`, () => {
     expect(ActionCreator.takeNextStep()).toEqual({
       type: ActionType.TAKE_STEP,
       payload: 1,
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 0 payload if answer for artist is correct`, () => {
+  it(`returns action with 0 payload if answer for artist is correct`, () => {
     expect(ActionCreator.checkMistakes({
       type: `artist`,
       song: {
@@ -122,7 +116,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 1 payload if answer for artist is incorrect`, () => {
+  it(`returns action with 1 payload if answer for artist is incorrect`, () => {
     expect(ActionCreator.checkMistakes({
       type: `artist`,
       song: {
@@ -150,7 +144,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 0 payload if answer for genre is correct`, () => {
+  it(`returns action with 0 payload if answer for genre is correct`, () => {
     expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,
@@ -175,7 +169,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for incrementing mistakes returns action with 1 payload if answer for genre is incorrect`, () => {
+  it(`returns action with 1 payload if answer for genre is incorrect`, () => {
     expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,
@@ -200,7 +194,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`Action creator for start game over returns action with null payload`, () => {
+  it(`returns action with null payload`, () => {
     expect(ActionCreator.startOver())
       .toEqual({
         type: ActionType.START_OVER,
@@ -208,3 +202,4 @@ describe(`Action creators work properly`, () => {
       });
   });
 });
+

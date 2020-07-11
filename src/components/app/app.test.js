@@ -1,13 +1,13 @@
+import {App} from "./app.jsx";
+
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import React from "react";
 import renderer from "react-test-renderer";
 
-import {App} from "./app.jsx";
+const mockStore = configureStore([]);
 
-const testStore = configureStore([]);
-
-const testQuestions = [
+const mockQuestions = [
   {
     type: `genre`,
     genre: `rock`,
@@ -44,9 +44,9 @@ const testQuestions = [
 ];
 
 describe(`App Component rendering`, () => {
-  it(`App Component should render WelcomeScreen correctly`, () => {
-    const store = testStore({
-      mistakes: 0,
+  it(`renders WelcomeScreen correctly`, () => {
+    const store = mockStore({
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -55,7 +55,7 @@ describe(`App Component rendering`, () => {
             <App
               mistakes={1}
               maxMistakes={3}
-              questions={testQuestions}
+              questions={mockQuestions}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -67,9 +67,9 @@ describe(`App Component rendering`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App Component should render GenreQuestionScreen correctly`, () => {
-    const store = testStore({
-      mistakes: 3,
+  it(`renders GenreQuestionScreen correctly`, () => {
+    const store = mockStore({
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -78,7 +78,7 @@ describe(`App Component rendering`, () => {
             <App
               mistakes={1}
               maxMistakes={3}
-              questions={testQuestions}
+              questions={mockQuestions}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -92,9 +92,9 @@ describe(`App Component rendering`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App Component should render ArtistQuestionScreen correctly`, () => {
-    const store = testStore({
-      mistakes: 3,
+  it(`renders ArtistQuestionScreen correctly`, () => {
+    const store = mockStore({
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -103,7 +103,7 @@ describe(`App Component rendering`, () => {
             <App
               mistakes={1}
               maxMistakes={3}
-              questions={testQuestions}
+              questions={mockQuestions}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -117,9 +117,9 @@ describe(`App Component rendering`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App Component should render GameOverScreen correctly`, () => {
-    const store = testStore({
-      mistakes: 3,
+  it(`renders GameOverScreen correctly`, () => {
+    const store = mockStore({
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -128,7 +128,7 @@ describe(`App Component rendering`, () => {
             <App
               mistakes={3}
               maxMistakes={3}
-              questions={testQuestions}
+              questions={mockQuestions}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -144,9 +144,9 @@ describe(`App Component rendering`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App Component should render WinScreen correctly`, () => {
-    const store = testStore({
-      mistakes: 3,
+  it(`renders WinScreen correctly`, () => {
+    const store = mockStore({
+      GAME: {mistakes: 3}
     });
 
     const tree = renderer
@@ -155,7 +155,7 @@ describe(`App Component rendering`, () => {
             <App
               mistakes={0}
               maxMistakes={3}
-              questions={testQuestions}
+              questions={mockQuestions}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}

@@ -1,13 +1,14 @@
-import React from "react";
-import {configure, shallow, mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import GenreQuestionScreen from "./genre-question-screen.jsx";
+
+import Adapter from "enzyme-adapter-react-16";
+import {configure, mount, shallow} from "enzyme";
+import React from "react";
 
 configure({
   adapter: new Adapter()
 });
 
-const mock = {
+const mockQuestion = {
   question: {
     type: `genre`,
     genre: `rock`,
@@ -33,8 +34,8 @@ const mock = {
 };
 
 describe(`GenreQuestionScreen working test`, () => {
-  it(`When user try to submit form, default action will not occur`, () => {
-    const {question} = mock;
+  it(`prevents default action when user try to submit form`, () => {
+    const {question} = mockQuestion;
     const onAnswer = jest.fn();
     const genreQuestion = shallow(
         <GenreQuestionScreen
@@ -56,8 +57,8 @@ describe(`GenreQuestionScreen working test`, () => {
     expect(formSendPrevention).toHaveBeenCalledTimes(1);
   });
 
-  it(`Data passed to onChange callback is consistent with input data`, () => {
-    const {question} = mock;
+  it(`passes to callback data consistent with input checked attribute`, () => {
+    const {question} = mockQuestion;
     const onChange = jest.fn();
 
     const genreQuestion = mount(

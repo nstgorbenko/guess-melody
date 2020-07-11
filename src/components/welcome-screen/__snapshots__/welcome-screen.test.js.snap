@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WelcomeScreen Component rendering WelcomeScreen Component should render correctly 1`] = `
+exports[`WelcomeScreen Component rendering renders correctly 1`] = `
 <section
   className="welcome"
 >

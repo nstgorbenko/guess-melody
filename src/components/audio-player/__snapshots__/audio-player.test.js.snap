@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AudioPlayer Component rendering AudioPlayer Component should render correctly 1`] = `
+exports[`AudioPlayer Component rendering renders correctly 1`] = `
 Array [
   <button
     className="track__button track__button--play"

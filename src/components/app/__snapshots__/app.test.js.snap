@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App Component rendering App Component should render ArtistQuestionScreen correctly 1`] = `
+exports[`App Component rendering renders ArtistQuestionScreen correctly 1`] = `
 <section
   className="game game--artist"
 >
@@ -159,7 +159,7 @@ exports[`App Component rendering App Component should render ArtistQuestionScree
 </section>
 `;
 
-exports[`App Component rendering App Component should render GameOverScreen correctly 1`] = `
+exports[`App Component rendering renders GameOverScreen correctly 1`] = `
 <section
   className="result"
 >
@@ -193,7 +193,7 @@ exports[`App Component rendering App Component should render GameOverScreen corr
 </section>
 `;
 
-exports[`App Component rendering App Component should render GenreQuestionScreen correctly 1`] = `
+exports[`App Component rendering renders GenreQuestionScreen correctly 1`] = `
 <section
   className="game game--genre"
 >
@@ -409,7 +409,7 @@ exports[`App Component rendering App Component should render GenreQuestionScreen
 </section>
 `;
 
-exports[`App Component rendering App Component should render WelcomeScreen correctly 1`] = `
+exports[`App Component rendering renders WelcomeScreen correctly 1`] = `
 <section
   className="welcome"
 >
@@ -463,7 +463,7 @@ exports[`App Component rendering App Component should render WelcomeScreen corre
 </section>
 `;
 
-exports[`App Component rendering App Component should render WinScreen correctly 1`] = `
+exports[`App Component rendering renders WinScreen correctly 1`] = `
 <section
   className="result"
 >

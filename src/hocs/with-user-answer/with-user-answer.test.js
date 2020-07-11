@@ -1,9 +1,9 @@
+import withUserAnswer from "./with-user-answer.js";
+
 import React from "react";
 import renderer from "react-test-renderer";
 
-import withUserAnswer from "./with-user-answer.js";
-
-const testQuestion = {
+const mockQuestion = {
   type: `genre`,
   genre: `rock`,
   answers: [{
@@ -24,15 +24,16 @@ const testQuestion = {
 const MockComponent = () => (<div></div>);
 
 describe(`WithUserAnswer HOC rendering`, () => {
-  it(`WithUserAnswer should render correctly`, () => {
+  it(`renders correctly`, () => {
     const MockComponentWrapped = withUserAnswer(MockComponent);
 
     const tree = renderer
-      .create(<MockComponentWrapped question={testQuestion}
-        userAnswers={[false, true, false, false]}
-        onAnswer={() => {}}
-        onChange={() => {}}
-      />)
+      .create(
+          <MockComponentWrapped question={mockQuestion}
+            userAnswers={[false, true, false, false]}
+            onAnswer={() => {}}
+            onChange={() => {}}
+          />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
