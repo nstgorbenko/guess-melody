@@ -1,11 +1,13 @@
-import React from "react";
-import renderer from "react-test-renderer";
 import ErrorScreen from "./error-screen.jsx";
 
+import React from "react";
+import renderer from "react-test-renderer";
+
 describe(`ErrorScreen Component rendering`, () => {
-  it(`should render correctly`, () => {
+  it(`renders correctly`, () => {
     const tree = renderer
-      .create(<ErrorScreen />)
+      .create(
+          <ErrorScreen />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

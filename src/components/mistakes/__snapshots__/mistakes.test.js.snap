@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Mistakes Component rendering Mistakes Component should render correctly with 0 count 1`] = `
+exports[`Mistakes Component rendering renders correctly with 0 count 1`] = `
 <div
   className="game__mistakes"
 />
 `;
 
-exports[`Mistakes Component rendering Mistakes Component should render correctly with 1 count 1`] = `
+exports[`Mistakes Component rendering renders correctly with 1 count 1`] = `
 <div
   className="game__mistakes"
 >

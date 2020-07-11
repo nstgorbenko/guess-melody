@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GameOverScreen Component rendering GenreQuestionItem Component should render correctly 1`] = `
+exports[`GameOverScreen Component rendering renders correctly 1`] = `
 <section
   className="result"
 >

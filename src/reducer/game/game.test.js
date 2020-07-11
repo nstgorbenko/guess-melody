@@ -1,20 +1,20 @@
 import {ActionCreator, ActionType, reducer} from "./game.js";
 
-const testInitialState = {
+const mockInitialState = {
   mistakes: 0,
   maxMistakes: 3,
   step: -1,
 };
 
-describe(`Reducer work properly`, () => {
-  it(`should return initial state without additional parameters`, () => {
+describe(`Reducer working test`, () => {
+  it(`return initial state without additional parameters`, () => {
     const initialReducer = reducer(undefined, {});
 
-    expect(initialReducer).toEqual(testInitialState);
+    expect(initialReducer).toEqual(mockInitialState);
   });
 
-  it(`should increment number of mistakes by a given value`, () => {
-    expect(reducer(testInitialState, {
+  it(`increments number of mistakes by a given value`, () => {
+    expect(reducer(mockInitialState, {
       type: ActionType.CHECK_MISTAKES,
       payload: 1,
     })).toEqual({
@@ -23,7 +23,7 @@ describe(`Reducer work properly`, () => {
       step: -1,
     });
 
-    expect(reducer(testInitialState, {
+    expect(reducer(mockInitialState, {
       type: ActionType.CHECK_MISTAKES,
       payload: 0,
     })).toEqual({
@@ -33,8 +33,8 @@ describe(`Reducer work properly`, () => {
     });
   });
 
-  it(`should increment current step by a given value`, () => {
-    expect(reducer(testInitialState, {
+  it(`increments current step by a given value`, () => {
+    expect(reducer(mockInitialState, {
       type: ActionType.TAKE_STEP,
       payload: 1,
     })).toEqual({
@@ -43,7 +43,7 @@ describe(`Reducer work properly`, () => {
       step: 0,
     });
 
-    expect(reducer(testInitialState, {
+    expect(reducer(mockInitialState, {
       type: ActionType.TAKE_STEP,
       payload: 0,
     })).toEqual({
@@ -53,14 +53,14 @@ describe(`Reducer work properly`, () => {
     });
   });
 
-  it(`should return initial state`, () => {
+  it(`returns initial state`, () => {
     expect(reducer({
       step: 5,
       mistakes: 1,
     }, {
       type: ActionType.START_OVER,
       payload: null,
-    })).toEqual(testInitialState);
+    })).toEqual(mockInitialState);
 
     expect(reducer({
       step: 0,
@@ -68,7 +68,7 @@ describe(`Reducer work properly`, () => {
     }, {
       type: ActionType.START_OVER,
       payload: null,
-    })).toEqual(testInitialState);
+    })).toEqual(mockInitialState);
 
     expect(reducer({
       step: -1,
@@ -76,11 +76,11 @@ describe(`Reducer work properly`, () => {
     }, {
       type: ActionType.START_OVER,
       payload: null,
-    })).toEqual(testInitialState);
+    })).toEqual(mockInitialState);
   });
 });
 
-describe(`Action creators work properly`, () => {
+describe(`Action creators working test`, () => {
   it(`returns action with 1 payload`, () => {
     expect(ActionCreator.takeNextStep()).toEqual({
       type: ActionType.TAKE_STEP,
@@ -169,7 +169,7 @@ describe(`Action creators work properly`, () => {
     });
   });
 
-  it(`mistakes returns action with 1 payload if answer for genre is incorrect`, () => {
+  it(`returns action with 1 payload if answer for genre is incorrect`, () => {
     expect(ActionCreator.checkMistakes({
       type: `genre`,
       genre: `jazz`,

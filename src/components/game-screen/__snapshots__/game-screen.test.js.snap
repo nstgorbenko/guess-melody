@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GameScreen Component rendering GameScreen Component should render correctly with type GameType.ARTIST 1`] = `
+exports[`GameScreen Component rendering renders correctly with type GameType.ARTIST 1`] = `
 <section
   className="game game--artist"
 >
@@ -61,7 +61,7 @@ exports[`GameScreen Component rendering GameScreen Component should render corre
 </section>
 `;
 
-exports[`GameScreen Component rendering GameScreen Component should render correctly with type GameType.GENRE 1`] = `
+exports[`GameScreen Component rendering renders correctly with type GameType.GENRE 1`] = `
 <section
   className="game game--genre"
 >

@@ -1,13 +1,14 @@
-import React from "react";
-import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import ArtistQuestionScreen from "./artist-question-screen.jsx";
+
+import Adapter from "enzyme-adapter-react-16";
+import {configure, shallow} from "enzyme";
+import React from "react";
 
 configure({
   adapter: new Adapter()
 });
 
-const mock = {
+const mockQuestion = {
   question: {
     type: `artist`,
     song: {
@@ -36,19 +37,20 @@ const mockEvent = {
 };
 
 describe(`ArtistQuestionScreen working test`, () => {
-  it(`Data passed to callback is consistent with user answer`, () => {
-    const {question} = mock;
+  it(`passes to callback data consistent with user answer`, () => {
+    const {question} = mockQuestion;
     const onAnswer = jest.fn();
     const userAnswer = {
       artist: `one`,
       picture: `pic-one`,
     };
 
-    const screen = shallow(<ArtistQuestionScreen
-      question={question}
-      onAnswer={onAnswer}
-      renderPlayer={() => {}}
-    />);
+    const screen = shallow(
+        <ArtistQuestionScreen
+          question={question}
+          onAnswer={onAnswer}
+          renderPlayer={() => {}}
+        />);
 
     const firstInput = screen.find(`input`).at(0);
     firstInput.simulate(`change`, mockEvent);

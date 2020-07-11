@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArtistQuestionScreen Component rendering ArtistQuestionScreen Component should render correctly 1`] = `
+exports[`ArtistQuestionScreen Component rendering renders correctly 1`] = `
 <section
   className="game__screen"
 >

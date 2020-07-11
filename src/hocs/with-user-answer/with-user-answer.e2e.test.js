@@ -1,8 +1,8 @@
-import React from "react";
-import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-
 import withUserAnswer from "./with-user-answer.js";
+
+import Adapter from "enzyme-adapter-react-16";
+import {configure, shallow} from "enzyme";
+import React from "react";
 
 configure({
   adapter: new Adapter()
@@ -36,13 +36,14 @@ const mock = {
 };
 
 describe(`WithUserAnswer HOC working test`, () => {
-  it(`Should change answers`, () => {
+  it(`changes answers`, () => {
     const MockComponentWrapped = withUserAnswer(MockComponent);
 
-    const mockComponentWrapped = shallow(<MockComponentWrapped
-      question={mock.question}
-      onAnswer={() => {}}
-    />);
+    const mockComponentWrapped = shallow(
+        <MockComponentWrapped
+          question={mock.question}
+          onAnswer={() => {}}
+        />);
 
     expect(mockComponentWrapped.props().userAnswers).toEqual([false, false, false, false]);
 

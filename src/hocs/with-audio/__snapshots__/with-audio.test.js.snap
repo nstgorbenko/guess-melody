@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WithAudio HOC rendering WithAudio should render correctly 1`] = `
+exports[`WithAudio HOC rendering renders correctly 1`] = `
 <div>
   <audio />
 </div>

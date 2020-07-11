@@ -1,12 +1,13 @@
 import {ActionCreator, ActionType, Operation, reducer} from "./data.js";
+
 import createAPI from "../../api.js";
 import MockAdapter from "axios-mock-adapter";
 
-const testInitialState = {
+const mockInitialState = {
   questions: []
 };
 
-const testQuestions = [{
+const mockQuestions = [{
   type: `genre`,
   genre: `rock`,
   answers: [{
@@ -42,24 +43,24 @@ const testQuestions = [{
 
 const api = createAPI(() => {});
 
-describe(`Reducer work properly`, () => {
-  it(`should return initial state without additional parameters`, () => {
+describe(`Reducer working test`, () => {
+  it(`returns initial state without additional parameters`, () => {
     const initialReducer = reducer(undefined, {});
 
-    expect(initialReducer).toEqual(testInitialState);
+    expect(initialReducer).toEqual(mockInitialState);
   });
 
-  it(`should update questions by load`, () => {
-    expect(reducer(testInitialState, {
+  it(`updates questions by load`, () => {
+    expect(reducer(mockInitialState, {
       type: ActionType.LOAD_QUESTIONS,
-      payload: testQuestions,
+      payload: mockQuestions,
     })).toEqual({
-      questions: testQuestions
+      questions: mockQuestions
     });
   });
 
-  it(`should update questions with [null] value`, () => {
-    expect(reducer(testInitialState, {
+  it(`updates questions with [null] value`, () => {
+    expect(reducer(mockInitialState, {
       type: ActionType.STUB_BAD_DATA,
       payload: [null],
     })).toEqual({
@@ -68,11 +69,11 @@ describe(`Reducer work properly`, () => {
   });
 });
 
-describe(`Action creators work properly`, () => {
+describe(`Action creators working test`, () => {
   it(`returns action with given value`, () => {
-    expect(ActionCreator.loadQuestions(testQuestions)).toEqual({
+    expect(ActionCreator.loadQuestions(mockQuestions)).toEqual({
       type: ActionType.LOAD_QUESTIONS,
-      payload: testQuestions,
+      payload: mockQuestions,
     });
   });
 
@@ -84,8 +85,8 @@ describe(`Action creators work properly`, () => {
   });
 });
 
-describe(`Operation work properly`, () => {
-  it(`make a correct API call to /questions`, () => {
+describe(`Operation working test`, () => {
+  it(`makes a correct API call to /questions`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const questionLoader = Operation.loadQuestions();

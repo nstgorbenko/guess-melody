@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorScreen Component rendering should render correctly 1`] = `
+exports[`ErrorScreen Component rendering renders correctly 1`] = `
 <section
   className="result"
 >
