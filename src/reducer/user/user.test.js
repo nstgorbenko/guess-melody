@@ -7,7 +7,13 @@ const mockInitialState = {
   authorizationStatus: `NO_AUTH`,
 };
 
+const mockAuthData = {
+  login: `user@yandex.ru`,
+  password: 111111,
+};
+
 const api = createAPI(() => {});
+const apiMock = new MockAdapter(api);
 
 describe(`Reducer working test`, () => {
   it(`returns initial state without additional parameters`, () => {
@@ -65,8 +71,7 @@ describe(`Action creators working test`, () => {
 });
 
 describe(`Operation working test`, () => {
-  it(`makes a correct API call to /login`, () => {
-    const apiMock = new MockAdapter(api);
+  it(`makes a correct API GET call to /login`, () => {
     const dispatch = jest.fn();
     const authorizationChecker = Operation.checkAuthorization();
 
@@ -75,6 +80,24 @@ describe(`Operation working test`, () => {
       .reply(200);
 
     return authorizationChecker(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledWith({
+          type: ActionType.REQUIRE_AUTHORIZATION,
+          payload: `AUTH`,
+        });
+      });
+  });
+
+  it(`makes a correct API POST call to /login`, () => {
+    const dispatch = jest.fn();
+    const authorization = Operation.login(mockAuthData);
+
+    apiMock
+      .onPost(`/login`)
+      .reply(200);
+
+    return authorization(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledWith({
