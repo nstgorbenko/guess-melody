@@ -7,7 +7,7 @@ const Error = {
 const LOADING_TIME = 5000;
 const APP_URL = `https://4.react.pages.academy/guess-melody`;
 
-const createAPI = () => {
+const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: APP_URL,
     timeout: LOADING_TIME,
@@ -20,6 +20,7 @@ const createAPI = () => {
     const {response} = error;
 
     if (response.status === Error.UNAUTHORIZED) {
+      onUnauthorized();
       throw error;
     }
   };
