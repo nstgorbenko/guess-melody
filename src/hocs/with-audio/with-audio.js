@@ -67,7 +67,7 @@ const withAudio = (Component) => {
       this._audioRef = null;
     }
 
-    _handleClick() {
+    handleClick() {
       this.setState((prevState) => ({
         isPlaying: !prevState.isPlaying
       }));
@@ -82,7 +82,7 @@ const withAudio = (Component) => {
           {...this.props}
           isLoading={isLoading}
           isPlaying={isPlaying}
-          onClick={() => this._handleClick()}
+          onClick={() => this.handleClick()}
         >
           <audio ref={this._audioRef} />
         </Component>

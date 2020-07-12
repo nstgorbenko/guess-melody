@@ -1,15 +1,14 @@
-import WelcomeScreen from "./welcome-screen.jsx";
-
 import React from "react";
 import renderer from "react-test-renderer";
+import LoginScreen from "./login-screen.jsx";
 
-describe(`WelcomeScreen Component rendering`, () => {
+describe(`LoginScreen Component rendering`, () => {
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
-          <WelcomeScreen
-            errorsCount = {3}
-            onWelcomeButtonClick = {() => {}}
+          <LoginScreen
+            onReplayButtonClick={() => {}}
+            onSubmit={() => {}}
           />)
       .toJSON();
 

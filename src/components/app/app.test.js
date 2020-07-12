@@ -53,9 +53,11 @@ describe(`App Component rendering`, () => {
       .create(
           <Provider store={store}>
             <App
+              authorizationStatus={`NO_AUTH`}
               mistakes={1}
               maxMistakes={3}
               questions={mockQuestions}
+              login={() => {}}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -76,9 +78,11 @@ describe(`App Component rendering`, () => {
       .create(
           <Provider store={store}>
             <App
+              authorizationStatus={`NO_AUTH`}
               mistakes={1}
               maxMistakes={3}
               questions={mockQuestions}
+              login={() => {}}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -101,9 +105,11 @@ describe(`App Component rendering`, () => {
       .create(
           <Provider store={store}>
             <App
+              authorizationStatus={`NO_AUTH`}
               mistakes={1}
               maxMistakes={3}
               questions={mockQuestions}
+              login={() => {}}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -126,9 +132,11 @@ describe(`App Component rendering`, () => {
       .create(
           <Provider store={store}>
             <App
+              authorizationStatus={`NO_AUTH`}
               mistakes={3}
               maxMistakes={3}
               questions={mockQuestions}
+              login={() => {}}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
@@ -153,9 +161,40 @@ describe(`App Component rendering`, () => {
       .create(
           <Provider store={store}>
             <App
+              authorizationStatus={`AUTH`}
               mistakes={0}
               maxMistakes={3}
               questions={mockQuestions}
+              login={() => {}}
+              onUserAnswer={() => {}}
+              onWelcomeButtonClick={() => {}}
+              onStartOver={() => {}}
+              step={3}
+            />
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`renders LoginScreen correctly`, () => {
+    const store = mockStore({
+      GAME: {mistakes: 3}
+    });
+
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <App
+              authorizationStatus={`NO_AUTH`}
+              mistakes={0}
+              maxMistakes={3}
+              questions={mockQuestions}
+              login={() => {}}
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}

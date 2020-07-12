@@ -18,8 +18,7 @@ describe(`GenreQuestionItem Component rendering`, () => {
             userAnswer={false}
             onChange={() => {}}
             renderPlayer={() => {}}
-          />
-      )
+          />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

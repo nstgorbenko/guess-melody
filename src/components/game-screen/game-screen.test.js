@@ -12,8 +12,7 @@ describe(`GameScreen Component rendering`, () => {
       .create(
           <GameScreen type={GameType.ARTIST} mistakes={3}>
             {mockChildren}
-          </GameScreen>
-      )
+          </GameScreen>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -24,8 +23,7 @@ describe(`GameScreen Component rendering`, () => {
       .create(
           <GameScreen type={GameType.GENRE} mistakes={3}>
             {mockChildren}
-          </GameScreen>
-      )
+          </GameScreen>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
