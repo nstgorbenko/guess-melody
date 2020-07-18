@@ -27,13 +27,13 @@ exports[`WinScreen Component rendering 2 questions renders with 0 mistakes 1`] =
      и совершили 
     0 ошибок
   </p>
-  <button
+  <a
     className="replay"
+    href="/"
     onClick={[Function]}
-    type="button"
   >
     Сыграть ещё раз
-  </button>
+  </a>
 </section>
 `;
 
@@ -64,13 +64,13 @@ exports[`WinScreen Component rendering 2 questions renders with 1 mistake 1`] = 
      и совершили 
     1 ошибку
   </p>
-  <button
+  <a
     className="replay"
+    href="/"
     onClick={[Function]}
-    type="button"
   >
     Сыграть ещё раз
-  </button>
+  </a>
 </section>
 `;
 
@@ -101,13 +101,13 @@ exports[`WinScreen Component rendering 3 questions renders with 0 mistakes 1`] =
      и совершили 
     0 ошибок
   </p>
-  <button
+  <a
     className="replay"
+    href="/"
     onClick={[Function]}
-    type="button"
   >
     Сыграть ещё раз
-  </button>
+  </a>
 </section>
 `;
 
@@ -138,12 +138,12 @@ exports[`WinScreen Component rendering 3 questions renders with 1 mistake 1`] = 
      и совершили 
     1 ошибку
   </p>
-  <button
+  <a
     className="replay"
+    href="/"
     onClick={[Function]}
-    type="button"
   >
     Сыграть ещё раз
-  </button>
+  </a>
 </section>
 `;

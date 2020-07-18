@@ -1,7 +1,9 @@
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 
 import {ANSWERS_PLURALS, getPluralForm, MISTAKES_PLURALS} from "../../utils/plural.js";
+import {AppRoute} from "../../const.js";
 
 const WinScreen = (props) => {
   const {questionsCount, mistakesCount, onReplayButtonClick} = props;
@@ -17,11 +19,12 @@ const WinScreen = (props) => {
       </div>
       <h2 className="result__title">Вы настоящий меломан!</h2>
       <p className="result__total">Вы ответили правильно на {questionsResult} и совершили {mistakesResult}</p>
-      <button className="replay" type="button"
+      <Link className="replay"
+        to={AppRoute.ROOT}
         onClick={onReplayButtonClick}
       >
         Сыграть ещё раз
-      </button>
+      </Link>
     </section>
   );
 };

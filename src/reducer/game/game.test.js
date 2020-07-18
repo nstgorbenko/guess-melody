@@ -58,7 +58,7 @@ describe(`Reducer working test`, () => {
       step: 5,
       mistakes: 1,
     }, {
-      type: ActionType.START_OVER,
+      type: ActionType.GO_TO_WELCOME,
       payload: null,
     })).toEqual(mockInitialState);
 
@@ -66,7 +66,7 @@ describe(`Reducer working test`, () => {
       step: 0,
       mistakes: 0,
     }, {
-      type: ActionType.START_OVER,
+      type: ActionType.GO_TO_WELCOME,
       payload: null,
     })).toEqual(mockInitialState);
 
@@ -74,9 +74,47 @@ describe(`Reducer working test`, () => {
       step: -1,
       mistakes: 0,
     }, {
-      type: ActionType.START_OVER,
+      type: ActionType.GO_TO_WELCOME,
       payload: null,
     })).toEqual(mockInitialState);
+  });
+
+  it(`returns initial state with 0 step`, () => {
+    expect(reducer({
+      step: 5,
+      mistakes: 1,
+    }, {
+      type: ActionType.START_OVER,
+      payload: 0,
+    })).toEqual({
+      mistakes: 0,
+      maxMistakes: 3,
+      step: 0,
+    });
+
+    expect(reducer({
+      step: 0,
+      mistakes: 0,
+    }, {
+      type: ActionType.START_OVER,
+      payload: 0,
+    })).toEqual({
+      mistakes: 0,
+      maxMistakes: 3,
+      step: 0,
+    });
+
+    expect(reducer({
+      step: -1,
+      mistakes: 0,
+    }, {
+      type: ActionType.START_OVER,
+      payload: 0,
+    })).toEqual({
+      mistakes: 0,
+      maxMistakes: 3,
+      step: 0,
+    });
   });
 });
 
@@ -195,10 +233,18 @@ describe(`Action creators working test`, () => {
   });
 
   it(`returns action with null payload`, () => {
+    expect(ActionCreator.goToWelcome())
+      .toEqual({
+        type: ActionType.GO_TO_WELCOME,
+        payload: null,
+      });
+  });
+
+  it(`returns action with 0 payload`, () => {
     expect(ActionCreator.startOver())
       .toEqual({
         type: ActionType.START_OVER,
-        payload: null,
+        payload: 0,
       });
   });
 });

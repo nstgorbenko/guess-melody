@@ -8,6 +8,7 @@ const initialState = {
 
 const ActionType = {
   CHECK_MISTAKES: `CHECK_MISTAKES`,
+  GO_TO_WELCOME: `GO_TO_WELCOME`,
   START_OVER: `START_OVER`,
   TAKE_STEP: `TAKE_STEP`,
 };
@@ -22,9 +23,16 @@ const ActionCreator = {
     };
   },
 
+  goToWelcome: () => {
+    return {
+      type: ActionType.GO_TO_WELCOME,
+      payload: null,
+    };
+  },
+
   startOver: () => ({
     type: ActionType.START_OVER,
-    payload: null,
+    payload: 0,
   }),
 
   takeNextStep: () => ({
@@ -39,12 +47,16 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         mistakes: state.mistakes + action.payload,
       });
+    case ActionType.GO_TO_WELCOME:
+      return Object.assign({}, initialState);
     case ActionType.TAKE_STEP:
       return Object.assign({}, state, {
         step: state.step + action.payload,
       });
     case ActionType.START_OVER:
-      return Object.assign({}, initialState);
+      return Object.assign({}, initialState, {
+        step: action.payload,
+      });
   }
   return state;
 };

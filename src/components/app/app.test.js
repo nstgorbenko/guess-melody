@@ -45,25 +45,19 @@ const mockQuestions = [
 
 describe(`App Component rendering`, () => {
   it(`renders WelcomeScreen correctly`, () => {
-    const store = mockStore({
-      GAME: {mistakes: 3}
-    });
-
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <App
-              authorizationStatus={`NO_AUTH`}
-              mistakes={1}
-              maxMistakes={3}
-              questions={mockQuestions}
-              login={() => {}}
-              onUserAnswer={() => {}}
-              onWelcomeButtonClick={() => {}}
-              onStartOver={() => {}}
-              step={-1}
-            />
-          </Provider>)
+          <App
+            authorizationStatus={`NO_AUTH`}
+            mistakes={1}
+            maxMistakes={3}
+            questions={mockQuestions}
+            login={() => {}}
+            onUserAnswer={() => {}}
+            onWelcomeButtonClick={() => {}}
+            onStartOver={() => {}}
+            step={-1}
+          />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -71,7 +65,7 @@ describe(`App Component rendering`, () => {
 
   it(`renders GenreQuestionScreen correctly`, () => {
     const store = mockStore({
-      GAME: {mistakes: 3}
+      GAME: {mistakes: 1}
     });
 
     const tree = renderer
@@ -98,7 +92,7 @@ describe(`App Component rendering`, () => {
 
   it(`renders ArtistQuestionScreen correctly`, () => {
     const store = mockStore({
-      GAME: {mistakes: 3}
+      GAME: {mistakes: 1}
     });
 
     const tree = renderer
@@ -123,30 +117,39 @@ describe(`App Component rendering`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`renders GameOverScreen correctly`, () => {
-    const store = mockStore({
-      GAME: {mistakes: 3}
-    });
-
+  it(`renders LoginScreen correctly`, () => {
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <App
-              authorizationStatus={`NO_AUTH`}
-              mistakes={3}
-              maxMistakes={3}
-              questions={mockQuestions}
-              login={() => {}}
-              onUserAnswer={() => {}}
-              onWelcomeButtonClick={() => {}}
-              onStartOver={() => {}}
-              step={1}
-            />
-          </Provider>, {
-            createNodeMock: () => {
-              return {};
-            }
-          })
+          <App
+            authorizationStatus={`NO_AUTH`}
+            mistakes={0}
+            maxMistakes={3}
+            questions={mockQuestions}
+            login={() => {}}
+            onUserAnswer={() => {}}
+            onWelcomeButtonClick={() => {}}
+            onStartOver={() => {}}
+            step={3}
+          />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`renders GameOverScreen correctly`, () => {
+    const tree = renderer
+      .create(
+          <App
+            authorizationStatus={`AUTH`}
+            mistakes={4}
+            maxMistakes={3}
+            questions={mockQuestions}
+            login={() => {}}
+            onUserAnswer={() => {}}
+            onWelcomeButtonClick={() => {}}
+            onStartOver={() => {}}
+            step={5}
+          />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -154,7 +157,7 @@ describe(`App Component rendering`, () => {
 
   it(`renders WinScreen correctly`, () => {
     const store = mockStore({
-      GAME: {mistakes: 3}
+      USER: {authorizationStatus: `AUTH`}
     });
 
     const tree = renderer
@@ -169,42 +172,9 @@ describe(`App Component rendering`, () => {
               onUserAnswer={() => {}}
               onWelcomeButtonClick={() => {}}
               onStartOver={() => {}}
-              step={3}
+              step={2}
             />
-          </Provider>, {
-            createNodeMock: () => {
-              return {};
-            }
-          })
-      .toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`renders LoginScreen correctly`, () => {
-    const store = mockStore({
-      GAME: {mistakes: 3}
-    });
-
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <App
-              authorizationStatus={`NO_AUTH`}
-              mistakes={0}
-              maxMistakes={3}
-              questions={mockQuestions}
-              login={() => {}}
-              onUserAnswer={() => {}}
-              onWelcomeButtonClick={() => {}}
-              onStartOver={() => {}}
-              step={3}
-            />
-          </Provider>, {
-            createNodeMock: () => {
-              return {};
-            }
-          })
+          </Provider>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

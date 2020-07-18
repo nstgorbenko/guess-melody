@@ -1,9 +1,10 @@
-import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import React, {PureComponent} from "react";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import PropTypes from "prop-types";
+import React, {PureComponent} from "react";
 
 import {ActionCreator} from "../../reducer/game/game.js";
+import {AppRoute} from "../../const.js";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import ErrorScreen from "../error-screen/error-screen.jsx";
@@ -15,6 +16,7 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getMaxMistakes, getMistakes, getStep} from "../../reducer/game/selectors.js";
 import {getQuestions} from "../../reducer/data/selectors.js";
 import LoginScreen from "../login-screen/login-screen.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import WinScreen from "../win-screen/win-screen.jsx";
@@ -54,7 +56,7 @@ class App extends PureComponent {
   }
 
   _renderGameScreen() {
-    const {authorizationStatus, mistakes, maxMistakes, questions, step, login, onWelcomeButtonClick, onStartOver} = this.props;
+    const {authorizationStatus, mistakes, maxMistakes, questions, step, onWelcomeButtonClick} = this.props;
     const question = questions[step];
 
     if (questions[0] === null) {
@@ -73,30 +75,15 @@ class App extends PureComponent {
     }
 
     if (mistakes >= maxMistakes) {
-      return (
-        <GameOverScreen
-          onReplayButtonClick={onStartOver}
-        />
-      );
+      return <Redirect to={AppRoute.LOSE}/>;
     }
 
     if (step >= questions.length && authorizationStatus === AuthorizationStatus.AUTH) {
-      return (
-        <WinScreen
-          questionsCount={questions.length}
-          mistakesCount={mistakes}
-          onReplayButtonClick={onStartOver}
-        />
-      );
+      return <Redirect to={AppRoute.RESULT}/>;
     }
 
     if (step >= questions.length && authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return (
-        <LoginScreen
-          onReplayButtonClick={onStartOver}
-          onSubmit={login}
-        />
-      );
+      return <Redirect to={AppRoute.LOGIN}/>;
     }
 
     if (question) {
@@ -112,20 +99,36 @@ class App extends PureComponent {
   }
 
   render() {
-    const {questions} = this.props;
+    const {mistakes, questions, login, onStartOver} = this.props;
 
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={AppRoute.ROOT}>
             {this._renderGameScreen()}
           </Route>
-          <Route exact path="/artist">
-            {this._renderArtistQuestionScreen(questions[1])}
+          <Route exact path={AppRoute.LOGIN}>
+            <LoginScreen
+              onReplayButtonClick={onStartOver}
+              onSubmit={login}
+            />
           </Route>
-          <Route exact path="/genre">
-            {this._renderGenreQuestionScreen(questions[0])}
+          <Route exact path={AppRoute.LOSE}>
+            <GameOverScreen
+              onReplayButtonClick={onStartOver}
+            />
           </Route>
+          <PrivateRoute exact path={AppRoute.RESULT}
+            render={() => {
+              return (
+                <WinScreen
+                  questionsCount={questions.length}
+                  mistakesCount={mistakes}
+                  onReplayButtonClick={onStartOver}
+                />
+              );
+            }}
+          />
         </Switch>
       </BrowserRouter>
     );
@@ -149,7 +152,7 @@ const mapStateToProps = (state) => ({
   mistakes: getMistakes(state),
   maxMistakes: getMaxMistakes(state),
   step: getStep(state),
-  questions: getQuestions(state).slice(0, 2),
+  questions: getQuestions(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
