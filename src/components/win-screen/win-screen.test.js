@@ -1,5 +1,6 @@
 import WinScreen from "./win-screen.jsx";
 
+import {BrowserRouter} from "react-router-dom";
 import React from "react";
 import renderer from "react-test-renderer";
 
@@ -8,11 +9,13 @@ describe(`WinScreen Component rendering`, () => {
     it(`renders with 0 mistakes`, () => {
       const tree = renderer
         .create(
-            <WinScreen
-              questionsCount={3}
-              mistakesCount={0}
-              onReplayButtonClick={() => {}}
-            />)
+            <BrowserRouter>
+              <WinScreen
+                questionsCount={3}
+                mistakesCount={0}
+                onReplayButtonClick={() => {}}
+              />
+            </BrowserRouter>)
         .toJSON();
 
       expect(tree).toMatchSnapshot();
@@ -21,11 +24,13 @@ describe(`WinScreen Component rendering`, () => {
     it(`renders with 1 mistake`, () => {
       const tree = renderer
         .create(
-            <WinScreen
-              questionsCount={3}
-              mistakesCount={1}
-              onReplayButtonClick={() => {}}
-            />)
+            <BrowserRouter>
+              <WinScreen
+                questionsCount={3}
+                mistakesCount={1}
+                onReplayButtonClick={() => {}}
+              />
+            </BrowserRouter>)
         .toJSON();
 
       expect(tree).toMatchSnapshot();
@@ -36,11 +41,13 @@ describe(`WinScreen Component rendering`, () => {
     it(`renders with 0 mistakes`, () => {
       const tree = renderer
         .create(
-            <WinScreen
-              questionsCount={2}
-              mistakesCount={0}
-              onReplayButtonClick={() => {}}
-            />)
+            <BrowserRouter>
+              <WinScreen
+                questionsCount={2}
+                mistakesCount={0}
+                onReplayButtonClick={() => {}}
+              />
+            </BrowserRouter>)
         .toJSON();
 
       expect(tree).toMatchSnapshot();
@@ -49,11 +56,13 @@ describe(`WinScreen Component rendering`, () => {
     it(`renders with 1 mistake`, () => {
       const tree = renderer
         .create(
-            <WinScreen
-              questionsCount={2}
-              mistakesCount={1}
-              onReplayButtonClick={() => {}}
-            />)
+            <BrowserRouter>
+              <WinScreen
+                questionsCount={2}
+                mistakesCount={1}
+                onReplayButtonClick={() => {}}
+              />
+            </BrowserRouter>)
         .toJSON();
 
       expect(tree).toMatchSnapshot();

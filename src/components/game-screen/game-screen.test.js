@@ -1,6 +1,7 @@
 import {GameScreen} from "./game-screen.jsx";
 import {GameType} from "../../const.js";
 
+import {BrowserRouter} from "react-router-dom";
 import React from "react";
 import renderer from "react-test-renderer";
 
@@ -10,9 +11,15 @@ describe(`GameScreen Component rendering`, () => {
   it(`renders correctly with type GameType.ARTIST`, () => {
     const tree = renderer
       .create(
-          <GameScreen type={GameType.ARTIST} mistakes={3}>
-            {mockChildren}
-          </GameScreen>)
+          <BrowserRouter>
+            <GameScreen
+              type={GameType.ARTIST}
+              mistakes={3}
+              goToWelcome={() => {}}
+            >
+              {mockChildren}
+            </GameScreen>
+          </BrowserRouter>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -21,9 +28,15 @@ describe(`GameScreen Component rendering`, () => {
   it(`renders correctly with type GameType.GENRE`, () => {
     const tree = renderer
       .create(
-          <GameScreen type={GameType.GENRE} mistakes={3}>
-            {mockChildren}
-          </GameScreen>)
+          <BrowserRouter>
+            <GameScreen
+              type={GameType.GENRE}
+              mistakes={3}
+              goToWelcome={() => {}}
+            >
+              {mockChildren}
+            </GameScreen>
+          </BrowserRouter>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
